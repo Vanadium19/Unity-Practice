@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace ComponentsModule
@@ -16,6 +17,9 @@ namespace ComponentsModule
         private float _verticalVelocity;
 
         private bool _isRunning;
+        private bool _isFalling;
+
+        public event Action Jumped;
 
         public MoveComponent(CharacterController characterController, float speed, float jumpHeight, float gravity)
         {
@@ -29,12 +33,13 @@ namespace ComponentsModule
         }
 
         public bool IsRunning => _isRunning;
+        public bool IsFalling => _isFalling;
 
         public void Move(Vector2 direction, bool isJumping)
         {
             var movement = direction.x * _transform.right + direction.y * _transform.forward;
             movement *= _speed;
-            _isRunning = !Mathf.Approximately(movement.magnitude, 0f);
+            _isRunning = _characterController.isGrounded && !Mathf.Approximately(movement.magnitude, 0f);
 
             _verticalVelocity = CalculateVerticalVelocity(isJumping);
             movement.y = _verticalVelocity;
@@ -54,9 +59,12 @@ namespace ComponentsModule
 
             if (isGrounded)
             {
+                _isFalling = false;
+
                 if (isJumping)
                 {
                     verticalVelocity = Mathf.Sqrt(_jumpHeight * GroundingForce * _gravity);
+                    Jumped?.Invoke();
                 }
                 else if (verticalVelocity < 0)
                 {
@@ -66,6 +74,7 @@ namespace ComponentsModule
             else
             {
                 verticalVelocity += _gravity * Time.deltaTime;
+                _isFalling = true;
             }
 
             return verticalVelocity;
