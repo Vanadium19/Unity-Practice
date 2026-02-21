@@ -4,9 +4,10 @@ using Zenject;
 
 namespace RootModule
 {
-    public class Bootstrapper : MonoInstaller
+    public class GameSceneInstaller : MonoInstaller
     {
         [SerializeField] private PlayerProvider player;
+        [SerializeField] private GameObject menu;
 
         public override void InstallBindings()
         {
@@ -16,6 +17,11 @@ namespace RootModule
 
             Container.Bind<HealPlayerCommand>()
                 .AsSingle()
+                .NonLazy();
+
+            Container.BindInterfacesTo<GameSceneController>()
+                .AsSingle()
+                .WithArguments(menu)
                 .NonLazy();
         }
     }
