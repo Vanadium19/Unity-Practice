@@ -1,0 +1,4 @@
+{
+  "name": "TrapsModule",
+  "references":[ "GUID:ad92713fd5884a16a1e7ccde1a579228", "GUID:a7a5ed93b3df438888739f1b14689ee6" ]
+}
