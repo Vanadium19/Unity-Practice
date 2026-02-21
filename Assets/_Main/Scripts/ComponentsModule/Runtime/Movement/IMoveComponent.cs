@@ -6,5 +6,7 @@ namespace ComponentsModule
     {
         void Move(Vector2 direction, bool jumpe);
         void SetSpeed(float value);
+
+        bool IsRunning { get; }
     }
 }

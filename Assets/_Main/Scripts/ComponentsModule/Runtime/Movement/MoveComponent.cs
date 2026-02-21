@@ -15,6 +15,8 @@ namespace ComponentsModule
         private float _speed;
         private float _verticalVelocity;
 
+        private bool _isRunning;
+
         public MoveComponent(CharacterController characterController, float speed, float jumpHeight, float gravity)
         {
             _characterController = characterController;
@@ -26,10 +28,13 @@ namespace ComponentsModule
             _speed = speed;
         }
 
+        public bool IsRunning => _isRunning;
+
         public void Move(Vector2 direction, bool isJumping)
         {
             var movement = direction.x * _transform.right + direction.y * _transform.forward;
             movement *= _speed;
+            _isRunning = !Mathf.Approximately(movement.magnitude, 0f);
 
             _verticalVelocity = CalculateVerticalVelocity(isJumping);
             movement.y = _verticalVelocity;
