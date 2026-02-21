@@ -14,6 +14,7 @@ namespace ComponentsModule
 
         public int MaxHealth => _maxHealth;
         public int CurrentHealth => _currentHealth;
+
         public bool IsAlive => _currentHealth > 0;
 
         public HealthComponent(int maxHealth)
@@ -34,6 +35,20 @@ namespace ComponentsModule
 
             if (_currentHealth <= 0)
                 Died?.Invoke();
+        }
+
+        public void Heal(int amount)
+        {
+            if (!IsAlive)
+                return;
+
+            if (amount <= 0)
+                return;
+
+            _currentHealth += amount;
+            _currentHealth = Mathf.Min(_currentHealth, _maxHealth);
+
+            HealthChanged?.Invoke(_currentHealth, _maxHealth);
         }
     }
 }

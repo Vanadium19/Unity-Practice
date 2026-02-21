@@ -10,5 +10,7 @@ namespace ComponentsModule
 
         int MaxHealth { get; }
         int CurrentHealth { get; }
+        
+        void Heal(int amount);
     }
 }
