@@ -21,9 +21,10 @@
 
 ## Видео геймплея
 
-Добавьте ссылку на видео сюда:
+[![Watch the video](https://img.youtube.com/vi/iGBPWP2k0s/0.jpg)](https://youtu.be/-iGBPWP2k0s)
 
-- [Gameplay video]([https://example.com](https://youtu.be/-iGBPWP2k0s))
+> Нажмите на картинку или перейдите по ссылке:  
+> 🔗 https://youtu.be/-iGBPWP2k0s
 
 ## Технический стек
 
