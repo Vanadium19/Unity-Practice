@@ -16,7 +16,8 @@ namespace PlayerModule
         [SerializeField] private float gravity;
 
         [SerializeField] private float mouseSensitivity;
-        [SerializeField] private float lookXLimit;
+        [SerializeField] private float lookMinX = 15;
+        [SerializeField] private float lookMaxX = 30;
 
         [Header("Health")] [SerializeField] private int maxHealth;
         [SerializeField] private HealthView healthView;
@@ -47,7 +48,7 @@ namespace PlayerModule
             Container.Bind<IRotationComponent>()
                 .To<RotationComponent>()
                 .AsSingle()
-                .WithArguments(mouseSensitivity, lookXLimit);
+                .WithArguments(mouseSensitivity, lookMaxX, lookMinX);
 
             Container.Bind<IWallet>()
                 .To<Wallet>()

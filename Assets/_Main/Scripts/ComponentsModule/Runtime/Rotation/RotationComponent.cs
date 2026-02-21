@@ -8,12 +8,13 @@ namespace ComponentsModule
         private readonly Transform _cameraTransform;
 
         private readonly float _mouseSensitivity;
-        private readonly float _lookXLimit;
+        private readonly float _lookMaxX;
+        private readonly float _lookMinX;
 
         private float _rotationX;
         private float _rotationY;
 
-        public RotationComponent(Transform transform, float mouseSensitivity, float lookXLimit)
+        public RotationComponent(Transform transform, float mouseSensitivity, float lookMaxX, float lookMinX)
         {
             _transform = transform;
             _cameraTransform = Camera.main!.transform;
@@ -21,13 +22,14 @@ namespace ComponentsModule
             _rotationY = _transform.eulerAngles.y;
 
             _mouseSensitivity = mouseSensitivity;
-            _lookXLimit = lookXLimit;
+            _lookMaxX = lookMaxX;
+            _lookMinX = lookMinX;
         }
 
         public void Rotate(Vector2 direction)
         {
             _rotationX += -direction.y * _mouseSensitivity;
-            _rotationX = Mathf.Clamp(_rotationX, -_lookXLimit, _lookXLimit);
+            _rotationX = Mathf.Clamp(_rotationX, _lookMinX, _lookMaxX);
 
             _rotationY += direction.x * _mouseSensitivity;
 
