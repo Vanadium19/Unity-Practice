@@ -1,4 +1,5 @@
 using ComponentsModule;
+using UIModule;
 using UnityEngine;
 using Zenject;
 
@@ -6,21 +7,22 @@ namespace PlayerModule
 {
     public class PlayerInstaller : MonoInstaller
     {
-        [Header("References")] [SerializeField] private CharacterController characterController;
+        [Header("References")]
+        [SerializeField] private CharacterController characterController;
         [SerializeField] private Transform cameraRoot;
         [SerializeField] private Transform player;
 
-        [Header("Movement")] [SerializeField] private float walkSpeed;
+        [Header("Movement")]
+        [SerializeField] private float walkSpeed;
         [SerializeField] private float jumpHeight;
         [SerializeField] private float gravity;
 
         [SerializeField] private float mouseSensitivity;
         [SerializeField] private float lookXLimit;
 
-        [Header("Health")] [SerializeField] private int maxHealth;
-
-        // [Header("Health")]
-        // [SerializeField] private HealthView healthView;
+        [Header("Health")]
+        [SerializeField] private int maxHealth;
+        [SerializeField] private HealthView healthView;
 
         private void OnValidate()
         {
@@ -53,14 +55,14 @@ namespace PlayerModule
                 .AsSingle()
                 .WithArguments(maxHealth);
 
-            // Container.Bind<HealthView>()
-            //     .FromInstance(healthView)
-            //     .AsSingle();
-            //
-            // Container.BindInterfacesTo<HealthPresenter>()
-            //     .AsSingle()
-            //     .NonLazy();
-            //
+            Container.Bind<HealthView>()
+                .FromInstance(healthView)
+                .AsSingle();
+
+            Container.BindInterfacesTo<HealthPresenter>()
+                .AsSingle()
+                .NonLazy();
+
             Container.BindInterfacesTo<PlayerMovementController>()
                 .AsSingle()
                 .NonLazy();

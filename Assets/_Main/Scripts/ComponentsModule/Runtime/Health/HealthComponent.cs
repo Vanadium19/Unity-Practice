@@ -5,25 +5,24 @@ namespace ComponentsModule
 {
     public class HealthComponent : IHealthComponent
     {
-        private readonly float _maxHealth;
+        private readonly int _maxHealth;
 
-        private float _currentHealth;
+        private int _currentHealth;
 
-        public event Action<float, float> HealthChanged;
-        public event Action<Vector3?, Vector3?> DamageTaken;
+        public event Action<int, int> HealthChanged;
         public event Action Died;
 
-        public float MaxHealth => _maxHealth;
-        public float CurrentHealth => _currentHealth;
+        public int MaxHealth => _maxHealth;
+        public int CurrentHealth => _currentHealth;
         public bool IsAlive => _currentHealth > 0;
 
-        public HealthComponent(float maxHealth)
+        public HealthComponent(int maxHealth)
         {
             _maxHealth = maxHealth;
             _currentHealth = maxHealth;
         }
 
-        public void TakeDamage(float amount, Vector3? hitPoint = null, Vector3? force = null)
+        public void TakeDamage(int amount)
         {
             if (!IsAlive)
                 return;
@@ -32,7 +31,6 @@ namespace ComponentsModule
             _currentHealth = Mathf.Max(_currentHealth, 0);
 
             HealthChanged?.Invoke(_currentHealth, _maxHealth);
-            DamageTaken?.Invoke(hitPoint, force);
 
             if (_currentHealth <= 0)
                 Died?.Invoke();

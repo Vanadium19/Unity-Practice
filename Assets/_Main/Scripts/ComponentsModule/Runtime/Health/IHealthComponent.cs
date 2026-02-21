@@ -5,11 +5,10 @@ namespace ComponentsModule
 {
     public interface IHealthComponent : IDamageable
     {
-        event Action<float, float> HealthChanged;
-        event Action<Vector3?, Vector3?> DamageTaken;
+        event Action<int, int> HealthChanged;
         event Action Died;
 
-        float MaxHealth { get; }
-        float CurrentHealth { get; }
+        int MaxHealth { get; }
+        int CurrentHealth { get; }
     }
 }
