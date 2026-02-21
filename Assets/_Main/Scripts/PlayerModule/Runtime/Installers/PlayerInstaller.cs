@@ -7,22 +7,21 @@ namespace PlayerModule
 {
     public class PlayerInstaller : MonoInstaller
     {
-        [Header("References")]
-        [SerializeField] private CharacterController characterController;
+        [Header("References")] [SerializeField] private CharacterController characterController;
         [SerializeField] private Transform cameraRoot;
         [SerializeField] private Transform player;
 
-        [Header("Movement")]
-        [SerializeField] private float walkSpeed;
+        [Header("Movement")] [SerializeField] private float walkSpeed;
         [SerializeField] private float jumpHeight;
         [SerializeField] private float gravity;
 
         [SerializeField] private float mouseSensitivity;
         [SerializeField] private float lookXLimit;
 
-        [Header("Health")]
-        [SerializeField] private int maxHealth;
+        [Header("Health")] [SerializeField] private int maxHealth;
         [SerializeField] private HealthView healthView;
+
+        [Header("Wallet")] [SerializeField] private TextView wallet;
 
         private void OnValidate()
         {
@@ -50,6 +49,10 @@ namespace PlayerModule
                 .AsSingle()
                 .WithArguments(mouseSensitivity, lookXLimit);
 
+            Container.Bind<IWallet>()
+                .To<Wallet>()
+                .AsSingle();
+
             Container.Bind(typeof(IHealthComponent), typeof(IDamageable))
                 .To<HealthComponent>()
                 .AsSingle()
@@ -61,6 +64,11 @@ namespace PlayerModule
 
             Container.BindInterfacesTo<HealthPresenter>()
                 .AsSingle()
+                .NonLazy();
+
+            Container.BindInterfacesTo<WalletPresenter>()
+                .AsSingle()
+                .WithArguments(wallet)
                 .NonLazy();
 
             Container.BindInterfacesTo<PlayerMovementController>()
