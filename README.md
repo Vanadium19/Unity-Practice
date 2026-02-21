@@ -21,7 +21,7 @@
 
 ## Видео геймплея
 
-[![Watch the video](https://img.youtube.com/vi/iGBPWP2k0s/0.jpg)](https://youtu.be/-iGBPWP2k0s)
+[![Watch the video](https://i.ytimg.com/vi/-iGBPWP2k0s/maxresdefault.jpg)](https://youtu.be/-iGBPWP2k0s)
 
 > Нажмите на картинку или перейдите по ссылке:  
 > 🔗 https://youtu.be/-iGBPWP2k0s
